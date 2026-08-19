@@ -5,6 +5,60 @@
  * documents, it does not belong in this file.
  */
 
+/**
+ * Resolves the canonical site origin, defensively.
+ *
+ * `new URL()` in the root layout's `metadataBase` throws "Invalid URL" for two
+ * very easy mistakes, and the resulting build failure ("Failed to collect
+ * configuration for /_not-found") names neither the variable nor the value:
+ *
+ *   NEXT_PUBLIC_SITE_URL=""              -> `??` does not catch empty strings
+ *   NEXT_PUBLIC_SITE_URL=example.com     -> no scheme
+ *
+ * So: treat blank as unset, add https:// when the scheme is missing, validate,
+ * and fall back through Vercel's own URL variables (which carry no scheme) to
+ * localhost. This never throws, so the build cannot fail on a misconfigured
+ * environment variable.
+ *
+ * Note: the VERCEL_* values resolve on the server only — Next.js replaces
+ * non-NEXT_PUBLIC variables with undefined in client bundles. That is fine
+ * because `site.url` is used exclusively in server-side metadata. If you ever
+ * render it inside a "use client" component, set NEXT_PUBLIC_SITE_URL
+ * explicitly so both sides agree.
+ */
+function resolveSiteUrl(): string {
+  const candidates = [
+    process.env.NEXT_PUBLIC_SITE_URL,
+    process.env.NEXT_PUBLIC_VERCEL_PROJECT_PRODUCTION_URL,
+    process.env.VERCEL_PROJECT_PRODUCTION_URL,
+    process.env.VERCEL_URL,
+  ];
+
+  for (const candidate of candidates) {
+    const value = candidate?.trim();
+    if (!value) continue;
+    const withScheme = /^https?:\/\//i.test(value) ? value : `https://${value}`;
+    try {
+      return new URL(withScheme).origin;
+    } catch {
+      // Malformed entry — try the next candidate rather than failing the build.
+    }
+  }
+
+  // Nothing usable. The build still succeeds — a bad environment variable should
+  // not break a deploy — but shout about it, because shipping localhost canonical
+  // URLs and Open Graph images to production is a silent SEO failure otherwise.
+  if (process.env.NODE_ENV === "production" || process.env.VERCEL) {
+    console.warn(
+      "[site] No valid site URL found. Set NEXT_PUBLIC_SITE_URL to your full origin " +
+        '(e.g. "https://rishabhkaushik.com"). Falling back to http://localhost:3000, ' +
+        "which will produce wrong canonical URLs and broken Open Graph images.",
+    );
+  }
+
+  return "http://localhost:3000";
+}
+
 export const site = {
   name: "Rishabh Kaushik",
   firstName: "Rishabh",
@@ -16,7 +70,7 @@ export const site = {
   tagline: "CALGARY, AB",
   location: { city: "Calgary", region: "AB", country: "Canada", timezone: "America/Edmonton" },
   email: "rishabhkaushik33@gmail.com",
-  url: process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000",
+  url: resolveSiteUrl(),
   description:
     "Software developer in Calgary, AB. Recent SAIT graduate building applications on Microsoft Azure with TypeScript, React, Node.js and SQL.",
   keywords: [
