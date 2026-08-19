@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 1000" width="800" height="1000" role="img" aria-label="Portrait placeholder">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#12161c"/>
+      <stop offset="45%" stop-color="#0b0e13"/>
+      <stop offset="100%" stop-color="#05070a"/>
+    </linearGradient>
+
+    <radialGradient id="warm" cx="72%" cy="88%" r="78%">
+      <stop offset="0%" stop-color="#ff4d94" stop-opacity="0.30"/>
+      <stop offset="42%" stop-color="#ff7a2f" stop-opacity="0.14"/>
+      <stop offset="100%" stop-color="#ffd28a" stop-opacity="0"/>
+    </radialGradient>
+
+    <radialGradient id="cool" cx="22%" cy="12%" r="70%">
+      <stop offset="0%" stop-color="#24d17e" stop-opacity="0.20"/>
+      <stop offset="60%" stop-color="#24d17e" stop-opacity="0.05"/>
+      <stop offset="100%" stop-color="#24d17e" stop-opacity="0"/>
+    </radialGradient>
+
+    <radialGradient id="halo" cx="50%" cy="40%" r="44%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.13"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+    </radialGradient>
+
+    <linearGradient id="figure" x1="0.2" y1="0" x2="0.9" y2="1">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.15"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0.04"/>
+    </linearGradient>
+
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M40 0 H0 V40" fill="none" stroke="#ffffff" stroke-opacity="0.03" stroke-width="1"/>
+    </pattern>
+
+    <radialGradient id="vign" cx="50%" cy="45%" r="74%">
+      <stop offset="55%" stop-color="#000000" stop-opacity="0"/>
+      <stop offset="100%" stop-color="#000000" stop-opacity="0.5"/>
+    </radialGradient>
+  </defs>
+
+  <rect width="800" height="1000" fill="url(#bg)"/>
+  <rect width="800" height="1000" fill="url(#grid)"/>
+  <rect width="800" height="1000" fill="url(#cool)"/>
+  <rect width="800" height="1000" fill="url(#warm)"/>
+  <rect width="800" height="1000" fill="url(#halo)"/>
+
+  <!-- abstract figure: head and shoulders reduced to pure geometry -->
+  <g fill="url(#figure)">
+    <circle cx="400" cy="392" r="128"/>
+    <path d="M170 1000 C182 792 268 700 400 700 C532 700 618 792 630 1000 Z"/>
+  </g>
+  <g fill="none" stroke="#ffffff" stroke-opacity="0.15" stroke-width="1.5">
+    <circle cx="400" cy="392" r="128"/>
+    <circle cx="400" cy="392" r="176" stroke-opacity="0.065"/>
+    <circle cx="400" cy="392" r="224" stroke-opacity="0.04"/>
+    <path d="M170 1000 C182 792 268 700 400 700 C532 700 618 792 630 1000"/>
+  </g>
+
+  <!-- orbit nodes, echoing the site's node-graph motif -->
+  <g fill="#24d17e">
+    <circle cx="576" cy="392" r="5"/>
+    <circle cx="224" cy="392" r="4" fill-opacity="0.55"/>
+    <circle cx="400" cy="168" r="3.5" fill-opacity="0.4"/>
+  </g>
+
+  <text x="400" y="418" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif"
+        font-style="italic" font-size="150" fill="#ffffff" fill-opacity="0.88">RK</text>
+
+  <rect width="800" height="1000" fill="url(#vign)"/>
+</svg>
