@@ -22,7 +22,7 @@ import { site } from "@/data/site";
 import { projects } from "@/data/projects";
 import { useCopy } from "@/hooks/use-copy";
 import { useToast } from "@/components/ui/toast";
-import { GithubIcon } from "@/components/ui/social-icons";
+import { GithubIcon, LinkedinIcon } from "@/components/ui/social-icons";
 import { getLenis } from "./smooth-scroll";
 
 type Action = {
@@ -88,6 +88,17 @@ export function CommandPalette() {
         run: () => {
           close();
           window.location.href = `mailto:${site.email}`;
+        },
+      },
+      {
+        id: "linkedin",
+        label: "LinkedIn",
+        hint: `/in/${site.socials.linkedin.handle}`,
+        group: "Contact",
+        icon: <LinkedinIcon className="size-4" />,
+        run: () => {
+          close();
+          window.open(site.socials.linkedin.url, "_blank", "noopener,noreferrer");
         },
       },
       {

@@ -6,7 +6,7 @@ import { PageHeader } from "@/components/layout/page-header";
 import { SiteWidgets } from "@/components/widgets/site-widgets";
 import { StaggerGroup, StaggerItem } from "@/components/ui/reveal";
 import { TiltCard } from "@/components/ui/tilt-card";
-import { GithubIcon } from "@/components/ui/social-icons";
+import { GithubIcon, LinkedinIcon } from "@/components/ui/social-icons";
 import { CalendarDays, FileText, Mail } from "lucide-react";
 import { CopyEmailButton } from "@/components/widgets/copy-email-button";
 
@@ -20,6 +20,7 @@ export const metadata: Metadata = pageMetadata({
 
 const ICONS = {
   github: GithubIcon,
+  linkedin: LinkedinIcon,
   mail: Mail,
   file: FileText,
   calendar: CalendarDays,
@@ -81,8 +82,8 @@ export default function LinksPage() {
                           : card.id === "resume"
                             ? "Open PDF"
                             : card.id === "booking"
-                              ? "Pick a time"
-                              : "Visit"}
+                            ? "Pick a time"
+                            : "Visit"}
                         <ArrowUpRight className="size-3.5 transition-transform duration-500 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                       </span>
                     </a>

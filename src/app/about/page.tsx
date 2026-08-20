@@ -7,7 +7,7 @@ import { GithubSection } from "@/components/widgets/github-section";
 import { Reveal } from "@/components/ui/reveal";
 import { TiltCard } from "@/components/ui/tilt-card";
 import { ArrowLink } from "@/components/ui/arrow-link";
-import { GithubIcon } from "@/components/ui/social-icons";
+import { GithubIcon, LinkedinIcon } from "@/components/ui/social-icons";
 import { Timeline } from "@/components/about/timeline";
 import { SkillMatrix } from "@/components/about/skill-matrix";
 import { Marquee } from "@/components/ui/marquee";
@@ -40,6 +40,15 @@ export default function AboutPage() {
         description="Recent SAIT graduate. Backend and front-end, delivered end to end on Microsoft Azure, in an Agile team."
       >
         <div className="flex flex-wrap items-center gap-3">
+          <a
+            href={site.socials.linkedin.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group inline-flex items-center gap-2 rounded-full border border-line px-4 py-2 text-[0.8rem] text-ink-dim transition-colors duration-300 hover:border-line-strong hover:text-white"
+          >
+            <LinkedinIcon className="size-3.5" />
+            LinkedIn
+          </a>
           <a
             href={site.socials.github.url}
             target="_blank"
@@ -80,9 +89,9 @@ export default function AboutPage() {
               <div className="card-surface aspect-4/5 w-full">
                 <Image
                   src={site.avatar}
-                  alt={site.name}
+                  alt={`${site.name}, ${site.role.toLowerCase()} based in ${site.location.city}`}
                   fill
-                  sizes="(max-width: 1024px) 100vw, 520px"
+                  sizes="(max-width: 1024px) 100vw, (max-width: 1440px) 600px, 660px"
                   className="object-cover"
                   priority
                 />

@@ -2,12 +2,12 @@
 
 import { motion, useScroll, useTransform } from "motion/react";
 import { useRef } from "react";
-import { Layers, MapPin, Sparkles } from "lucide-react";
+import { ArrowUpRight, Layers, Mail, MapPin, Sparkles } from "lucide-react";
 import { site } from "@/data/site";
 import { StarField } from "@/components/ui/starfield";
 import { TextRevealOnMount } from "@/components/ui/text-reveal";
 import { Magnetic } from "@/components/ui/magnetic";
-import { GithubIcon } from "@/components/ui/social-icons";
+import { LinkedinIcon } from "@/components/ui/social-icons";
 
 /**
  * Hero with three parallax planes driven by scroll progress: the ghost wordmark
@@ -58,16 +58,14 @@ export function Hero() {
           transition={{ duration: 0.9, delay: 1.35, ease: [0.16, 1, 0.3, 1] }}
           style={{ opacity: fade }}
         >
-          <Magnetic strength={0.3}>
-            <a
-              href={`mailto:${site.email}`}
-              className="group inline-flex items-center gap-2 rounded-full border border-line bg-white/[0.045] px-4 py-2 backdrop-blur-xl transition-colors duration-300 hover:border-line-strong"
-            >
-              <Sparkles className="size-3.5 text-accent transition-transform duration-500 group-hover:rotate-90" />
-              <span className="text-[0.78rem] font-medium text-white">Open to developer roles</span>
-              <GithubIcon className="size-3 text-white/60" />
-            </a>
-          </Magnetic>
+          <span className="inline-flex items-center gap-2.5 rounded-full border border-line bg-white/[0.045] px-4 py-2 backdrop-blur-xl">
+            <span className="relative inline-flex size-1.5">
+              <span className="absolute inset-0 rounded-full bg-accent" />
+              <span className="absolute inset-0 animate-pulse-ring rounded-full bg-accent" />
+            </span>
+            <span className="text-[0.78rem] font-medium text-white">Open to developer roles</span>
+            <Sparkles className="size-3.5 text-accent" />
+          </span>
         </motion.div>
       </div>
 
@@ -100,6 +98,41 @@ export function Hero() {
           >
             {site.heroLineTwo}
           </motion.p>
+
+          {/* Two calls to action: write to me, or check me out. */}
+          <motion.div
+            initial={{ opacity: 0, y: 20, filter: "blur(8px)" }}
+            animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+            transition={{ duration: 0.9, delay: 2.3, ease: [0.16, 1, 0.3, 1] }}
+            className="mt-8 flex w-full max-w-[17.5rem] flex-col items-stretch gap-3 sm:mt-10 sm:max-w-none sm:flex-row sm:items-center sm:justify-center"
+          >
+            <Magnetic strength={0.2} className="w-full sm:w-auto">
+              <a
+                href={`mailto:${site.email}`}
+                className="group relative inline-flex h-12 w-full items-center justify-center gap-2 overflow-hidden rounded-full bg-white px-7 text-[0.9rem] font-medium text-black sm:w-auto"
+              >
+                <span
+                  aria-hidden
+                  className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-black/10 to-transparent transition-transform duration-700 group-hover:translate-x-full"
+                />
+                <Mail className="relative z-10 size-4" />
+                <span className="relative z-10">Email Me</span>
+              </a>
+            </Magnetic>
+
+            <Magnetic strength={0.2} className="w-full sm:w-auto">
+              <a
+                href={site.socials.linkedin.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group inline-flex h-12 w-full items-center justify-center gap-2 rounded-full border border-line-strong bg-white/[0.045] px-7 text-[0.9rem] font-medium text-white backdrop-blur-xl transition-colors duration-300 hover:bg-white/[0.1] sm:w-auto"
+              >
+                <LinkedinIcon className="size-4" />
+                <span>Connect on LinkedIn</span>
+                <ArrowUpRight className="size-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+              </a>
+            </Magnetic>
+          </motion.div>
         </motion.div>
       </div>
 

@@ -7,7 +7,7 @@ export type LinkCard = {
   url: string;
   description: string;
   accent: string;
-  icon: "github" | "mail" | "file" | "calendar";
+  icon: "github" | "linkedin" | "mail" | "file" | "calendar";
 };
 
 /** Only the contact details that appear on the resume, plus the GitHub account that hosts FitCheck. */
@@ -20,6 +20,15 @@ const baseCards: LinkCard[] = [
     description: "The fastest way to reach me. I read everything and reply to real messages.",
     accent: "#24d17e",
     icon: "mail",
+  },
+  {
+    id: "linkedin",
+    label: "LinkedIn",
+    handle: `/in/${site.socials.linkedin.handle}`,
+    url: site.socials.linkedin.url,
+    description: "Roles, timeline and the professional trail, in the formal format.",
+    accent: "#0a66c2",
+    icon: "linkedin",
   },
   {
     id: "github",

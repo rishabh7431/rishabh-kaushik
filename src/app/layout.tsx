@@ -106,7 +106,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       "Agile delivery",
       "Automated testing",
     ],
-    sameAs: [site.socials.github.url],
+    sameAs: [site.socials.linkedin.url, site.socials.github.url],
   };
 
   const siteLd = {

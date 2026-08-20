@@ -5,7 +5,7 @@ import { motion } from "motion/react";
 import { ArrowUp } from "lucide-react";
 import { footerNav, site } from "@/data/site";
 import { Mail } from "lucide-react";
-import { GithubIcon } from "@/components/ui/social-icons";
+import { GithubIcon, LinkedinIcon } from "@/components/ui/social-icons";
 import { Reveal } from "@/components/ui/reveal";
 import { Marquee } from "@/components/ui/marquee";
 import { Magnetic } from "@/components/ui/magnetic";
@@ -13,6 +13,7 @@ import { getLenis } from "./smooth-scroll";
 import { useLocalTime } from "@/hooks/use-local-time";
 
 const SOCIALS = [
+  { label: "LinkedIn", url: site.socials.linkedin.url, Icon: LinkedinIcon },
   { label: "GitHub", url: site.socials.github.url, Icon: GithubIcon },
   { label: "Email", url: `mailto:${site.email}`, Icon: Mail },
 ];

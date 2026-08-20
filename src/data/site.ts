@@ -104,7 +104,7 @@ export const site = {
   footerTagline: "Requirements in, working software out.",
 
   resumeUrl: "/Rishabh-Kaushik-Resume.pdf",
-  avatar: "/images/avatar.svg",
+  avatar: "/images/rishabh-kaushik.jpg",
 
   /**
    * Live booking link. Paste a scheduling URL here and every "Let's Get in Touch"
@@ -123,6 +123,11 @@ export const site = {
 
   socials: {
     github: { label: "GitHub", handle: "rishabh7431", url: "https://github.com/rishabh7431" },
+    linkedin: {
+      label: "LinkedIn",
+      handle: "rishabh-kaushik-937b56167",
+      url: "https://www.linkedin.com/in/rishabh-kaushik-937b56167/",
+    },
   },
 } as const;
 

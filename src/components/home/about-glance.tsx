@@ -7,7 +7,7 @@ import { site } from "@/data/site";
 import { Reveal } from "@/components/ui/reveal";
 import { TextReveal } from "@/components/ui/text-reveal";
 import { ArrowLink } from "@/components/ui/arrow-link";
-import { GithubIcon } from "@/components/ui/social-icons";
+import { GithubIcon, LinkedinIcon } from "@/components/ui/social-icons";
 import { TiltCard } from "@/components/ui/tilt-card";
 
 /** Copy on this section comes from the resume's professional summary. */
@@ -67,6 +67,15 @@ export function AboutGlance() {
           <Reveal direction="up" delay={0.3}>
             <div className="mt-8 flex flex-wrap items-center gap-3">
               <a
+                href={site.socials.linkedin.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group inline-flex items-center gap-2 rounded-full border border-line px-4 py-2 text-[0.8rem] text-ink-dim transition-colors duration-300 hover:border-line-strong hover:text-white"
+              >
+                <LinkedinIcon className="size-3.5" />
+                LinkedIn
+              </a>
+              <a
                 href={site.socials.github.url}
                 target="_blank"
                 rel="noopener noreferrer"
@@ -106,9 +115,9 @@ export function AboutGlance() {
               <div className="card-surface aspect-4/5 w-full">
                 <Image
                   src={site.avatar}
-                  alt={site.name}
+                  alt={`${site.name}, ${site.role.toLowerCase()} based in ${site.location.city}`}
                   fill
-                  sizes="(max-width: 1024px) 100vw, 480px"
+                  sizes="(max-width: 1024px) 100vw, (max-width: 1440px) 560px, 620px"
                   className="object-cover"
                 />
                 <div className="absolute inset-x-0 bottom-0 flex items-end justify-between gap-3 bg-gradient-to-t from-black/85 to-transparent p-5">
