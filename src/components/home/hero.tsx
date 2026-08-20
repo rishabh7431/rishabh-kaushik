@@ -44,8 +44,16 @@ export function Hero() {
       {/* Ghost wordmark */}
       <motion.span
         aria-hidden
-        style={{ y: ghostY, opacity: fade }}
-        className="pointer-events-none absolute left-1/2 top-1/2 z-[1] hidden -translate-x-1/2 -translate-y-1/2 select-none whitespace-nowrap font-display text-[26vw] font-bold leading-none tracking-[-0.05em] text-white/[0.022] md:block"
+        style={{
+          y: ghostY,
+          opacity: fade,
+          // Fade the lower half out so the watermark can be genuinely visible
+          // without competing with the eyebrow and serif lines that sit over it,
+          // and so its bounding box never shows as a hard horizontal edge.
+          maskImage: "linear-gradient(to bottom, #000 0%, #000 40%, transparent 74%)",
+          WebkitMaskImage: "linear-gradient(to bottom, #000 0%, #000 40%, transparent 74%)",
+        }}
+        className="pointer-events-none absolute left-1/2 top-1/2 z-[1] hidden -translate-x-1/2 -translate-y-1/2 select-none whitespace-nowrap font-display text-[26vw] font-bold leading-none tracking-[-0.05em] text-white/[0.09] sm:block"
       >
         {site.lastName.toUpperCase()}
       </motion.span>

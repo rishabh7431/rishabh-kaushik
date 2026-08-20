@@ -58,8 +58,12 @@ export function PageHeader({
       {ghost && (
         <motion.span
           aria-hidden
-          style={{ y: ghostY }}
-          className="pointer-events-none absolute right-[-3vw] top-[16%] hidden select-none whitespace-nowrap font-display text-[20vw] font-bold leading-none tracking-[-0.05em] text-white/[0.022] sm:block"
+          style={{
+            y: ghostY,
+            maskImage: "linear-gradient(to bottom, #000 0%, #000 45%, transparent 82%)",
+            WebkitMaskImage: "linear-gradient(to bottom, #000 0%, #000 45%, transparent 82%)",
+          }}
+          className="pointer-events-none absolute right-[-3vw] top-[16%] hidden select-none whitespace-nowrap font-display text-[20vw] font-bold leading-none tracking-[-0.05em] text-white/[0.07] sm:block"
         >
           {ghost}
         </motion.span>

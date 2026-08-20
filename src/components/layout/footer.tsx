@@ -110,7 +110,7 @@ export function Footer() {
           <Marquee speed={46} pauseOnHover={false} fade>
             {Array.from({ length: 2 }).map((_, i) => (
               <span key={i} className="flex items-center">
-                <span className="display-tight whitespace-nowrap px-8 text-[clamp(3.2rem,12vw,11rem)] leading-[0.85] text-white/[0.06]">
+                <span className="display-tight whitespace-nowrap px-8 text-[clamp(3.2rem,12vw,11rem)] leading-[0.85] text-white/[0.085]">
                   {site.name.toUpperCase()}
                 </span>
                 <span className="text-[clamp(1rem,3vw,2.4rem)] text-accent/25">✦</span>
