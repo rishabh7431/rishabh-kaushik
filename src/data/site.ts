@@ -98,6 +98,19 @@ export const site = {
   ctaAccent: "developer roles.",
 
   // About glance
+  /**
+   * The About summary, shared by the About page and the homepage "A quick
+   * glance" panel. These two had drifted apart — the homepage was still
+   * running the old Microsoft-Azure copy months after About was rewritten —
+   * so they now read from one array. Edit it here and both update.
+   */
+  aboutSummary: [
+    "I'm Rishabh Kaushik, a full-stack developer in Calgary and a 2026 graduate of SAIT's Software Development diploma.",
+    "I've delivered a TypeScript microservices platform on Microsoft Azure as developer and project manager for a four-person Agile team, and built and shipped Pulse, a food and training app now in open Android beta on Google Play.",
+    "I work in TypeScript, JavaScript and Python with React, React Native, Node.js and SQL databases. I write tests, document as I go, and design AI features so the product still works when the model doesn't.",
+    "Before software, I spent three years in client-facing marketing operations building automation and CRM workflows, so I'm comfortable turning a business problem into something people actually use.",
+  ],
+
   aboutEyebrow: "A QUICK GLANCE",
   aboutHeading: "End-to-end delivery,",
   aboutAccent: "across web and mobile.",

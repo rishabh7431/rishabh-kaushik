@@ -41,27 +41,26 @@ export function AboutGlance() {
           </h2>
 
           <div className="mt-7 flex max-w-xl flex-col gap-4 text-[0.96rem] leading-relaxed text-ink-dim">
-            <Reveal direction="up" delay={0.1}>
-              <p>
-                I&apos;m <strong className="font-semibold text-white">{site.name}</strong>, a recent
-                software development graduate (SAIT, August 2026) with hands-on experience building
-                applications on Microsoft Azure.
-              </p>
-            </Reveal>
-            <Reveal direction="up" delay={0.16}>
-              <p>
-                I turn business requirements into working software in an Agile team, work in
-                TypeScript, JavaScript and Python with SQL databases and REST APIs, use Git, and write
-                clear documentation as I go.
-              </p>
-            </Reveal>
-            <Reveal direction="up" delay={0.22}>
-              <p>
-                What sets me apart is real end-to-end delivery, leading a four-person Agile team, and
-                three years of prior client-facing business experience, plus daily use of Microsoft
-                Copilot and other AI tools.
-              </p>
-            </Reveal>
+            {site.aboutSummary.map((para, i) => {
+              // The first paragraph opens with the name; bold it without
+              // duplicating the sentence in two places.
+              const [before, ...rest] = para.split(site.name);
+              return (
+                <Reveal key={i} direction="up" delay={0.1 + i * 0.06}>
+                  <p>
+                    {rest.length > 0 ? (
+                      <>
+                        {before}
+                        <strong className="font-semibold text-white">{site.name}</strong>
+                        {rest.join(site.name)}
+                      </>
+                    ) : (
+                      para
+                    )}
+                  </p>
+                </Reveal>
+              );
+            })}
           </div>
 
           <Reveal direction="up" delay={0.3}>

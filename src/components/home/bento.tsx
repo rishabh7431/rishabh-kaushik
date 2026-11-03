@@ -68,7 +68,7 @@ export function BentoGrid() {
               <dl className="grid grid-cols-2 gap-3 border-t border-line pt-5">
                 {[
                   { k: "Role", v: "Software Developer" },
-                  { k: "Stack", v: "TS · React · Azure" },
+                  { k: "Stack", v: "TS · React · React Native" },
                   { k: "Education", v: "SAIT, Aug 2026" },
                   { k: "Status", v: "Open to work" },
                 ].map((row) => (

@@ -15,19 +15,12 @@ import { Marquee } from "@/components/ui/marquee";
 export const metadata: Metadata = pageMetadata({
   title: "About",
   description:
-    "Rishabh Kaushik — recent software development graduate (SAIT, August 2026) with hands-on experience building applications on Microsoft Azure in an Agile team.",
+    "Rishabh Kaushik — full-stack developer in Calgary and a 2026 SAIT graduate, building web and mobile apps in TypeScript, React, React Native and Node.js.",
   path: "/about",
   image: "/og/og-about.png",
   type: "profile",
 });
 
-/** Paragraphs below are the resume's professional summary, split for reading. */
-const SUMMARY = [
-  "I'm Rishabh Kaushik, a full-stack developer in Calgary and a 2026 graduate of SAIT's Software Development diploma.",
-  "I've delivered a TypeScript microservices platform on Microsoft Azure as developer and project manager for a four-person Agile team, and built and shipped Pulse, a food and training app now in open Android beta on Google Play.",
-  "I work in TypeScript, JavaScript and Python with React, React Native, Node.js and SQL databases. I write tests, document as I go, and design AI features so the product still works when the model doesn't.",
-  "Before software, I spent three years in client-facing marketing operations building automation and CRM workflows, so I'm comfortable turning a business problem into something people actually use.",
-];
 
 export default function AboutPage() {
   return (
@@ -37,7 +30,7 @@ export default function AboutPage() {
         title="WHO I"
         accent="really am."
         ghost="ABOUT"
-        description="Recent SAIT graduate. Backend and front-end, delivered end to end on Microsoft Azure, in an Agile team."
+        description="Recent SAIT graduate. Web and mobile, delivered end to end — from requirements through tests and deploy."
       >
         <div className="flex flex-wrap items-center gap-3">
           <a
@@ -75,7 +68,7 @@ export default function AboutPage() {
             <Reveal direction="up">
               <span className="eyebrow">Professional summary</span>
             </Reveal>
-            {SUMMARY.map((para, i) => (
+            {site.aboutSummary.map((para, i) => (
               <Reveal key={i} direction="up" delay={0.05 + i * 0.05}>
                 <p className={i === 0 ? "font-serif text-[1.45rem] italic leading-snug text-white" : undefined}>
                   {para}
