@@ -153,7 +153,6 @@ export const projects: Project[] = [
       "The try-on renders one garment rather than a complete outfit, and image models are not deterministic: the same request twice gives two different photographs.",
       "Generative image models are trained on datasets that over-represent some body types and skin tones. The prompt instructs the model that the subject's build, skin tone, age and ethnicity are unchanged, but whether that instruction holds equally well across all customers is not something five people testing on themselves can establish.",
     ],
-    repo: "https://github.com/rishabh7431/fitcheck_pwa",
     accent: "#3b82f6",
     featured: true,
   },

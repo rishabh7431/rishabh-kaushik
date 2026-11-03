@@ -35,7 +35,7 @@ const baseCards: LinkCard[] = [
     label: "GitHub",
     handle: `@${site.socials.github.handle}`,
     url: site.socials.github.url,
-    description: "Where the code lives, including the FitCheck source.",
+    description: "Public repositories and the work I build in the open.",
     accent: "#ffffff",
     icon: "github",
   },

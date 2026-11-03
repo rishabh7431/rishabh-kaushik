@@ -193,9 +193,9 @@ export function BentoGrid() {
               </h2>
 
               <p className="mt-5 text-[0.92rem] leading-relaxed text-ink-dim">
-                Recent software development graduate, eager to grow on the Microsoft cloud stack —
-                including the Power Platform and SharePoint — learning from experienced consultants
-                and architects.
+                Full-stack developer who takes work from requirements through architecture, tests
+                and deploy. Comfortable across the stack, and happy to own the parts most people
+                skip.
               </p>
 
               <dl className="mt-6 flex flex-col gap-3 border-t border-line pt-5">

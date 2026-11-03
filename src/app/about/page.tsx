@@ -26,7 +26,7 @@ const SUMMARY = [
   "Recent software development graduate (SAIT, August 2026) with hands-on experience building applications on Microsoft Azure.",
   "I turn business requirements into working software in an Agile team, work in TypeScript, JavaScript and Python with SQL databases and REST APIs, use Git, and write clear documentation as I go.",
   "What sets me apart is real end-to-end delivery, leading a four-person Agile team, and three years of prior client-facing business experience, plus daily use of Microsoft Copilot and other AI tools.",
-  "I am eager to grow as a developer on the Microsoft cloud stack, including the Power Platform and SharePoint, learning from experienced consultants and architects.",
+  "I am looking for a team where I can own features end to end and keep widening the range of problems I can take on — across the stack, and increasingly with AI as part of the product rather than a bolt-on.",
 ];
 
 export default function AboutPage() {

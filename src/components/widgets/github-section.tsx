@@ -2,7 +2,7 @@
 
 import useFetch from "@/hooks/use-fetch";
 import { motion } from "motion/react";
-import { GitBranch, GitCommitHorizontal, Star, Users } from "lucide-react";
+import { CalendarDays, Flame, GitBranch, GitCommitHorizontal } from "lucide-react";
 import type { GithubPayload } from "@/lib/github";
 import { site } from "@/data/site";
 import { relativeTime } from "@/lib/utils";
@@ -22,12 +22,44 @@ import { ArrowLink } from "@/components/ui/arrow-link";
 export function GithubSection() {
   const { data, error, loading } = useFetch<GithubPayload>("/api/github");
 
+  // If GitHub could not be reached, render nothing at all.
+  //
+  // This previously fell back to `?? 0` and printed "0 contributions,
+  // 0 repositories, 0 stars, 0 followers" — which does not read as "we could
+  // not load this", it reads as "this developer has shipped nothing". An absent
+  // section is neutral; a zeroed one actively argues against you. The usual
+  // cause is the unauthenticated GitHub API rate-limiting Vercel's shared
+  // serverless IPs, which a GITHUB_TOKEN fixes (see README).
+  const unavailable = !loading && (Boolean(error) || !data || data.degraded);
+  if (unavailable) return null;
+
+  // A derived calendar that totals zero means "no public events in the window",
+  // not "no contributions" — so show the graph only when the number is real.
+  const showGraph = Boolean(
+    data && (data.contributions.source === "graphql" || data.contributions.total > 0),
+  );
+
+  // Stars and followers used to sit here. For most working developers both are
+  // honestly zero — the work is in private and team repos — and a zero in a
+  // stat tile reads as a verdict on the person rather than a measurement of a
+  // popularity contest they never entered. Days shipped is the honest number.
   const stats = [
     { label: "Contributions", value: data?.stats.commitsThisYear ?? 0, Icon: GitCommitHorizontal },
+    { label: "Active days", value: data?.stats.activeDays ?? 0, Icon: CalendarDays },
+    { label: "Longest streak", value: data?.stats.longestStreak ?? 0, Icon: Flame },
     { label: "Repositories", value: data?.stats.repos ?? 0, Icon: GitBranch },
-    { label: "Stars earned", value: data?.stats.stars ?? 0, Icon: Star },
-    { label: "Followers", value: data?.stats.followers ?? 0, Icon: Users },
   ];
+
+  // The public events feed only covers 90 days and skips private work, so it
+  // is routinely empty for someone who is busy. Recently pushed repositories
+  // are the same signal from a source that does not expire.
+  const events = data?.events ?? [];
+  const recentRepos = (data?.repos ?? [])
+    .filter((r) => !r.isFork && r.pushedAt)
+    .slice(0, 6);
+  const showEvents = events.length > 0;
+  const showRepos = !showEvents && recentRepos.length > 0;
+  const showActivity = loading || showEvents || showRepos;
 
   return (
     <section className="relative w-full overflow-hidden bg-abyss px-5 pb-16 pt-24 sm:px-8 md:pt-28">
@@ -49,7 +81,12 @@ export function GithubSection() {
           </Reveal>
         </div>
 
-        <div className="mt-14 grid gap-4 lg:grid-cols-[1.25fr_1fr]">
+        <div
+          // items-start, not the default stretch: the activity card holds a handful
+          // of rows and stretching it to the calendar card's height leaves a tall
+          // empty well inside a bordered box, which reads as missing content.
+          className={`mt-14 grid gap-4 ${showActivity ? "lg:grid-cols-[1.25fr_1fr] lg:items-start" : ""}`}
+        >
           {/* Contribution card */}
           <Reveal direction="up" delay={0.06}>
             <div className="card-surface grain flex h-full flex-col p-6 sm:p-7">
@@ -87,7 +124,14 @@ export function GithubSection() {
                   </p>
                 )}
 
-                {data && <ContributionGraph data={data.contributions} />}
+                {data && showGraph && <ContributionGraph data={data.contributions} />}
+
+                {data && !showGraph && (
+                  <p className="text-[0.85rem] leading-relaxed text-ink-faint">
+                    Most of this year&apos;s work has been in private and team
+                    repositories, so it does not appear on the public calendar.
+                  </p>
+                )}
               </div>
 
               <div className="mt-7 grid grid-cols-2 gap-4 border-t border-line pt-6 sm:grid-cols-4">
@@ -139,74 +183,93 @@ export function GithubSection() {
           </Reveal>
 
           {/* Activity feed */}
-          <Reveal direction="up" delay={0.14}>
-            <div className="card-surface grain flex h-full flex-col p-6 sm:p-7">
-              <div className="flex items-center justify-between">
-                <span className="eyebrow">Latest push</span>
-                {data && (
-                  <span className="font-mono text-[0.55rem] uppercase tracking-[0.14em] text-accent">
-                    live
-                  </span>
-                )}
+          {showActivity && (
+            <Reveal direction="up" delay={0.14}>
+              <div className="card-surface grain flex h-full flex-col p-6 sm:p-7">
+                <div className="flex items-center justify-between">
+                  <span className="eyebrow">{showRepos ? "Recently updated" : "Latest push"}</span>
+                  {data && (
+                    <span className="font-mono text-[0.55rem] uppercase tracking-[0.14em] text-accent">
+                      live
+                    </span>
+                  )}
+                </div>
+
+                <div className="mt-5 flex flex-1 flex-col gap-3">
+                  {loading &&
+                    Array.from({ length: 5 }).map((_, i) => (
+                      <div key={i} className="flex flex-col gap-2 border-b border-line pb-3">
+                        <Skeleton className="h-3 w-2/3" />
+                        <Skeleton className="h-2.5 w-1/3" />
+                      </div>
+                    ))}
+
+                  {showEvents &&
+                    events.slice(0, 6).map((e, i) => (
+                      <motion.a
+                        key={e.id}
+                        href={e.repoUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        initial={{ opacity: 0, x: -14 }}
+                        whileInView={{ opacity: 1, x: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.5, delay: i * 0.07, ease: [0.16, 1, 0.3, 1] }}
+                        className="group flex flex-col gap-1 border-b border-line pb-3 last:border-0"
+                      >
+                        <span className="flex items-center justify-between gap-3">
+                          <span className="truncate font-mono text-[0.7rem] text-white/90 group-hover:text-white">
+                            {e.repo.split("/")[1] ?? e.repo}
+                          </span>
+                          <span className="shrink-0 font-mono text-[0.55rem] uppercase tracking-[0.12em] text-ink-faint">
+                            {relativeTime(e.createdAt)}
+                          </span>
+                        </span>
+                        <span className="line-clamp-2 text-[0.8rem] leading-snug text-ink-dim">
+                          {e.message}
+                        </span>
+                      </motion.a>
+                    ))}
+
+                  {showRepos &&
+                    recentRepos.map((r, i) => (
+                      <motion.a
+                        key={r.id}
+                        href={r.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        initial={{ opacity: 0, x: -14 }}
+                        whileInView={{ opacity: 1, x: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.5, delay: i * 0.07, ease: [0.16, 1, 0.3, 1] }}
+                        className="group flex flex-col gap-1 border-b border-line pb-3 last:border-0"
+                      >
+                        <span className="flex items-center justify-between gap-3">
+                          <span className="truncate font-mono text-[0.7rem] text-white/90 group-hover:text-white">
+                            {r.name}
+                          </span>
+                          <span className="shrink-0 font-mono text-[0.55rem] uppercase tracking-[0.12em] text-ink-faint">
+                            {relativeTime(r.pushedAt)}
+                          </span>
+                        </span>
+                        <span className="line-clamp-2 text-[0.8rem] leading-snug text-ink-dim">
+                          {r.description ?? (r.language ? `${r.language} repository` : "Repository")}
+                        </span>
+                      </motion.a>
+                    ))}
+                </div>
+
+                <a
+                  href={site.socials.github.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="mt-5 font-mono text-[0.6rem] uppercase tracking-[0.16em] text-ink-dim transition-colors hover:text-white"
+                >
+                  Open profile →
+                </a>
               </div>
-
-              <div className="mt-5 flex flex-1 flex-col gap-3">
-                {loading &&
-                  Array.from({ length: 5 }).map((_, i) => (
-                    <div key={i} className="flex flex-col gap-2 border-b border-line pb-3">
-                      <Skeleton className="h-3 w-2/3" />
-                      <Skeleton className="h-2.5 w-1/3" />
-                    </div>
-                  ))}
-
-                {data?.events.length === 0 && !loading && (
-                  <div className="flex flex-1 flex-col items-center justify-center gap-3 py-10 text-center">
-                    <span className="grid size-11 place-items-center rounded-full border border-line text-ink-faint">
-                      <GitBranch className="size-4" />
-                    </span>
-                    <p className="max-w-[15rem] text-[0.85rem] leading-relaxed text-ink-faint">
-                      No public activity in the last window. Private work does not show up
-                      here — that is the point of it being private.
-                    </p>
-                    <a
-                      href={site.socials.github.url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="font-mono text-[0.6rem] uppercase tracking-[0.16em] text-ink-dim transition-colors hover:text-white"
-                    >
-                      Open profile →
-                    </a>
-                  </div>
-                )}
-
-                {data?.events.slice(0, 6).map((e, i) => (
-                  <motion.a
-                    key={e.id}
-                    href={e.repoUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    initial={{ opacity: 0, x: -14 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.5, delay: i * 0.07, ease: [0.16, 1, 0.3, 1] }}
-                    className="group flex flex-col gap-1 border-b border-line pb-3 last:border-0"
-                  >
-                    <span className="flex items-center justify-between gap-3">
-                      <span className="truncate font-mono text-[0.7rem] text-white/90 group-hover:text-white">
-                        {e.repo.split("/")[1] ?? e.repo}
-                      </span>
-                      <span className="shrink-0 font-mono text-[0.55rem] uppercase tracking-[0.12em] text-ink-faint">
-                        {relativeTime(e.createdAt)}
-                      </span>
-                    </span>
-                    <span className="line-clamp-2 text-[0.8rem] leading-snug text-ink-dim">
-                      {e.message}
-                    </span>
-                  </motion.a>
-                ))}
-              </div>
-            </div>
-          </Reveal>
+            </Reveal>
+          )}
         </div>
       </div>
     </section>

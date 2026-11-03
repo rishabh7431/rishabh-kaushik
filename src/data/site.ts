@@ -72,7 +72,7 @@ export const site = {
   email: "rishabhkaushik33@gmail.com",
   url: resolveSiteUrl(),
   description:
-    "Software developer in Calgary, AB. Recent SAIT graduate building applications on Microsoft Azure with TypeScript, React, Node.js and SQL.",
+    "Full-stack developer in Calgary, AB. TypeScript, React, Next.js, Node.js and SQL — shipping products end to end, from requirements through tests and deploy.",
   keywords: [
     "Rishabh Kaushik",
     "Software Developer",
@@ -100,7 +100,7 @@ export const site = {
   aboutAccent: "on the Microsoft stack.",
 
   footerNote:
-    "Recent software development graduate seeking to grow on the Microsoft cloud stack, including Power Platform and SharePoint.",
+    "Full-stack developer shipping production software end to end — TypeScript, React and Node.js, with AI integrated where it earns its place.",
   footerTagline: "Requirements in, working software out.",
 
   resumeUrl: "/Rishabh-Kaushik-Resume.pdf",

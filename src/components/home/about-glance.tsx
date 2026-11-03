@@ -135,8 +135,8 @@ export function AboutGlance() {
             </TiltCard>
 
             <p className="mt-6 max-w-md font-serif text-[1.15rem] italic leading-snug text-white/75">
-              &ldquo;Eager to grow as a developer on the Microsoft cloud stack, including the Power
-              Platform and SharePoint, learning from experienced consultants and architects.&rdquo;
+              &ldquo;I like the problems that sit under the interface — the architecture, the data
+              flow and the failure modes. Then I make sure the thing actually ships.&rdquo;
             </p>
           </motion.div>
         </Reveal>

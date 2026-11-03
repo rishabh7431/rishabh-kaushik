@@ -204,8 +204,8 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
                       </ButtonLink>
                     ) : (
                       <p className="text-[0.85rem] leading-relaxed text-ink-faint">
-                        Built for a client team, so the repository is not public. Happy to walk
-                        through the architecture on a call.
+                        The repository is not public. Happy to walk through the architecture and
+                        the code on a call.
                       </p>
                     )}
                   </div>
