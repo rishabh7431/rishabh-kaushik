@@ -8,7 +8,7 @@ import { pageMetadata } from "@/lib/seo";
 export const metadata: Metadata = pageMetadata({
   title: "Work",
   description:
-    "Two projects by Rishabh Kaushik: a TypeScript microservices platform delivered on Microsoft Azure for GBTAC, and FitCheck, an AI retail app for mobile.",
+    "Two projects by Rishabh Kaushik: a TypeScript microservices platform delivered on Microsoft Azure for GBTAC, and Pulse, a cross-platform health app in open Android beta.",
   path: "/projects",
   image: "/og/og-projects.png",
 });

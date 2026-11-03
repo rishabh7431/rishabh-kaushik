@@ -1,11 +1,11 @@
 /**
  * Two projects, both documented.
  *  - GBTAC platform: from the Professional Experience section of the resume.
- *  - FitCheck: from the FitCheck project write-up.
+ *  - Pulse: from the Pulse project README.
  * No other project is claimed anywhere on this site.
  */
 
-export type ProjectStatus = "Delivered" | "Academic Project";
+export type ProjectStatus = "Delivered" | "Academic Project" | "Android Beta";
 
 export type Project = {
   slug: string;
@@ -25,6 +25,10 @@ export type Project = {
   decisions?: { title: string; body: string }[];
   limitations?: string[];
   repo?: string;
+  /** External destinations rendered as buttons on the project page. */
+  links?: { label: string; href: string }[];
+  /** A short line under Role — e.g. why there is no repository button. */
+  roleNote?: string;
   accent: string;
   featured: boolean;
 };
@@ -78,80 +82,83 @@ export const projects: Project[] = [
     featured: true,
   },
   {
-    slug: "fitcheck",
+    slug: "pulse",
     index: "02",
-    title: "FitCheck",
-    subtitle: "AI retail for mobile",
-    category: "Mobile / AI",
+    title: "Pulse",
+    subtitle: "A personal health app for iOS and Android",
+    category: "Mobile",
     year: "2026",
-    status: "Academic Project",
-    role: "Team of 5",
-    team: "SAIT · Emerging Trends in Software Development",
+    status: "Android Beta",
+    role: "Personal project",
+    team: "Solo build",
+    roleNote: "Source is private; happy to walk through the code on a call.",
     summary:
-      "A working Android shopping app with conversational search, occasion-aware styling and photorealistic virtual try-on — every AI feature optional, sitting on top of a deterministic engine that runs on the phone.",
+      "A cross-platform health app with barcode food logging, workout tracking, custom diet and training plans, and smartwatch and smart-ring sync, built on Expo and Supabase.",
     description: [
-      "Online clothing shops are very good at “show me black dresses under $100” and very poor at “what should I wear to dinner at a Michelin-starred restaurant?” The first is a database query. The second is a judgement — and it is the reason people still shop in physical stores, where a member of staff can look at them and answer it.",
-      "FitCheck is a working Android shopping app that attempts the second question. It has three AI features: a search that reads a plain-English request and then asks a language model which of the results genuinely suit the occasion; a Smart Closet that styles what a customer already owns against an occasion and the weather they describe; and a virtual try-on that renders a photorealistic studio photograph of the customer wearing a garment.",
-      "The finding I care about is not that the models work. It is that they can be made optional. Every AI feature sits on top of a deterministic engine that runs on the phone, so the app is fully usable with no network, no API key and no running cost. The model improves the answer; it is never required to produce one.",
-      "Underneath sits an ordinary retail spine — 35 products across two departments, per-variant stock, filtering and sorting, favourites, a bag, a validated delivery address and a placed order. The AI features are only interesting attached to something real.",
+      "Most health apps do one thing well: a calorie counter, a workout log, or a step tracker. Pulse puts nutrition, training, body weight and wearable data in one place, then uses them to build a plan that adjusts as you go.",
+      "You can scan a barcode or search for a food, log workouts, and record weight and progress photos. Pulse reads steps, active calories, workouts and weight from Apple Health on iPhone and Health Connect on Android, which covers Apple Watch, Galaxy Watch, Pixel Watch, Oura, Whoop, Garmin and others without integrating each one separately. Friends can join a group with a six-character code and compete in challenges.",
+      "It also includes Coach, an AI coach that reads your actual logs and suggests plan changes, which only apply after you tap to approve. Pulse is in open Android beta on Google Play, with iPhone coming through TestFlight.",
     ],
     stack: [
-      "React Native 0.81",
-      "Expo SDK 54",
-      "React 19",
-      "TypeScript 5.9",
-      "expo-router",
-      "Zustand",
-      "Firebase Auth",
-      "Gemini 2.5 Flash",
-      "Replicate",
-      "Vercel Functions",
+      "Expo SDK 58",
+      "React Native",
+      "TypeScript",
+      "Expo Router",
+      "Supabase",
+      "PostgreSQL",
+      "Row Level Security",
+      "React Query",
+      "Vitest",
       "EAS Build",
+      "Apple HealthKit",
+      "Android Health Connect",
     ],
     highlights: [
-      { label: "Catalogue", value: "35 products, 2 departments" },
-      { label: "Offline", value: "Fully usable, no API key" },
-      { label: "Shown at", value: "Emergex, August 2026" },
+      { label: "Platforms", value: "iOS, Android and web" },
+      { label: "Food sources", value: "5 merged into one search" },
+      { label: "Status", value: "Open Android beta" },
     ],
     contributions: [
-      "Conversational search — “Outfit for Calgary in December” resolves into a season and a warmth requirement. Because the catalogue contains nothing rated for that cold, the app says so plainly and recommends layering a coat it does not sell.",
-      "Smart Closet — turns a customer's order history into a wardrobe and styles it against an occasion and weather described in their own words.",
-      "Photorealistic try-on — takes a full-body photograph and returns a studio photograph of that person wearing the garment: same face, same build, correct colour, seamless backdrop, commercial colour grading.",
-      "A deterministic layer between the interface and the network — a query parser, a product ranker, a rule-based stylist and a size calculator. Every AI feature calls into that layer first and reaches the network only if a proxy is configured.",
-      "One error type for every model failure — no key, no network, a timeout, a rate limit — with every caller catching it and falling through to the engine on the device.",
-      "A rebuilt product data pipeline that reads colour off the product photograph: chroma-keying the background, eroding the edge halo, grouping shades of one fabric together, and naming the result by hue rather than RGB distance.",
+      "A plan engine in pure, unit-tested TypeScript: calories from Mifflin-St Jeor BMR and activity level, macros by goal and diet style, a training split chosen from days per week, experience and available equipment, and a 7-day meal plan scaled to the calorie target. Plans rebuild on every weigh-in.",
+      "A food search that queries a built-in list of about 200 everyday foods, USDA FoodData Central, Open Food Facts, a shared library of foods other users scanned, and the user's own foods, then merges them into one de-duplicated, ranked list.",
+      "A Supabase schema with row level security, a sign-up trigger that creates each profile, and a private storage bucket for progress photos.",
+      "Groups and challenges (most steps, most workouts, longest streak, weight loss %, \u201cperfect days\u201d) with leaderboards computed inside the database.",
+      "Google and Apple sign-in, and Apple Health and Health Connect sync behind one interface chosen per platform.",
     ],
     decisions: [
       {
-        title: "The engine narrows; the model chooses among what it narrowed to",
-        body: "I could have handed the model the whole catalogue and asked it to pick. Instead the ranker produces a shortlist and the model chooses within it, with its answer intersected against that shortlist before anything renders. A stylist that recommends a garment the shop does not stock is worse than no stylist — this makes that structurally impossible rather than merely unlikely. Tested by feeding it invented product identifiers, none of which reach the screen.",
+        title: "Leaderboards never return anyone's raw logs",
+        body: "Group rankings are computed by database functions that check membership first and return only scores. Row level security on personal tables stays intact, and weight loss is shared as a percentage, never as a weight.",
       },
       {
-        title: "Body measurements are never transmitted",
-        body: "Size recommendation could have been a model call. It is arithmetic against a size chart, computed on the device, and the measurements are excluded from every request — specifically because the provider's free tier states that submitted content may be used to improve their products. A customer's waist measurement is not mine to contribute to a training set.",
+        title: "Screens never talk to the database directly",
+        body: "Everything goes through one Repo interface, with a Supabase implementation and a local one for demo mode. Swapping the backend later means writing one new implementation, not touching every screen.",
       },
       {
-        title: "Secrets live server-side because an APK can be unzipped",
-        body: "The app never holds a key. A pair of serverless functions adds them. When a token was once pasted into the wrong configuration field and echoed into the UI, I added shape validation and redaction so no string with the provider's token prefix can reach a log or a screen.",
+        title: "Safety floors in the plan engine",
+        body: "Weight loss is capped at 1% of body weight a week, and calories never drop below BMR or a 1,200 / 1,500 kcal floor, whatever pace the user picks.",
       },
       {
-        title: "Prompts are code with unusually bad error messages",
-        body: "Two early versions of the try-on prompt issued instructions — “replace their outfit”, then “remove every garment”. The first was satisfied by compositing a dress over the joggers already in the photo. The second was taken literally enough to remove the subject's legs. The working version contains no destructive verbs at all: it describes the photograph that should exist, including an explicit statement that the subject's limbs are present and correctly proportioned.",
+        title: "One search, many sources, graceful failure",
+        body: "Results are de-duplicated by barcode or by name and similar calories. Foods with missing or inconsistent macros sink, the user's own foods and favourites rise, and if one source is down the others still show with a note.",
       },
       {
-        title: "Filters exclude; judgements rank",
-        body: "A search for “dresses” returned handbags for some time, because matching the women's department scored +30 while missing the category scored −25 and the remainder cleared the relevance threshold. Department, category, colour, size, budget and sale are literal properties a shopper can point at, so they now exclude. Occasion, warmth, formality and free text are judgements, so they only rank. When a combination has no stock the app concedes one constraint at a time and names the one it gave up.",
-      },
-      {
-        title: "Testing across the whole catalogue, not one product",
-        body: "The domain logic is written as pure functions, separate from the React components, so the real source can be compiled and executed directly against the real catalogue. Generating the try-on prompt for all 35 items is what exposed a naive singularisation producing “dresse”, the word “Occasion” being treated as a garment, “suitable” being read as “suit”, and sunglasses being described as opaque fabric. A single-product test finds none of these.",
+        title: "Platform hubs instead of per-device APIs",
+        body: "Reading from Apple Health and Health Connect covers most watches and rings through two integrations instead of a dozen.",
       },
     ],
     limitations: [
-      "Payment processing is deliberately out of scope — handling card data brings PCI-DSS obligations that are not a reasonable undertaking here, so checkout validates and records a real order and stops before taking payment.",
-      "Orders live on the device, so they do not follow a customer to a second phone.",
-      "The try-on renders one garment rather than a complete outfit, and image models are not deterministic: the same request twice gives two different photographs.",
-      "Generative image models are trained on datasets that over-represent some body types and skin tones. The prompt instructs the model that the subject's build, skin tone, age and ethnicity are unchanged, but whether that instruction holds equally well across all customers is not something five people testing on themselves can establish.",
+      "AI photo food recognition is not in yet — barcode and search only for now.",
+      "No direct Oura, Whoop or Garmin APIs; those are covered through Apple Health and Health Connect.",
+      "Push notifications and reminders are not built.",
+      "No iPhone release yet — TestFlight testing is next.",
+    ],
+    links: [
+      { label: "Website", href: "https://pulse.rkmediacompany.com" },
+      {
+        label: "Join the Android beta",
+        href: "https://play.google.com/store/apps/details?id=ca.rishabhkaushik.pulse",
+      },
     ],
     accent: "#3b82f6",
     featured: true,

@@ -1,6 +1,6 @@
 /**
  * Every string in this file is taken from Rishabh Kaushik's resume
- * (Software Developer, Calgary AB) or the FitCheck project write-up.
+ * (Software Developer, Calgary AB) or the Pulse project write-up.
  * Nothing here is invented — if a claim is not on one of those two
  * documents, it does not belong in this file.
  */
@@ -72,7 +72,7 @@ export const site = {
   email: "rishabhkaushik33@gmail.com",
   url: resolveSiteUrl(),
   description:
-    "Full-stack developer in Calgary, AB. TypeScript, React, Next.js, Node.js and SQL — shipping products end to end, from requirements through tests and deploy.",
+    "Rishabh Kaushik, full-stack software developer in Calgary, AB. Recent SAIT graduate building web and mobile apps with TypeScript, React, React Native, Node.js and Supabase.",
   keywords: [
     "Rishabh Kaushik",
     "Software Developer",
@@ -80,7 +80,10 @@ export const site = {
     "TypeScript",
     "React",
     "Next.js",
+    "React Native",
+    "Expo",
     "Node.js",
+    "Supabase",
     "Microsoft Azure",
     "SAIT",
     "Full Stack Developer",
@@ -97,10 +100,10 @@ export const site = {
   // About glance
   aboutEyebrow: "A QUICK GLANCE",
   aboutHeading: "End-to-end delivery,",
-  aboutAccent: "on the Microsoft stack.",
+  aboutAccent: "across web and mobile.",
 
   footerNote:
-    "Full-stack developer shipping production software end to end — TypeScript, React and Node.js, with AI integrated where it earns its place.",
+    "Full-stack developer in Calgary building web and mobile apps in TypeScript, React and React Native.",
   footerTagline: "Requirements in, working software out.",
 
   resumeUrl: "/Rishabh-Kaushik-Resume.pdf",

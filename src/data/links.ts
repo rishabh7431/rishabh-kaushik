@@ -10,7 +10,7 @@ export type LinkCard = {
   icon: "github" | "linkedin" | "mail" | "file" | "calendar";
 };
 
-/** Only the contact details that appear on the resume, plus the GitHub account that hosts FitCheck. */
+/** Only the contact details that appear on the resume, plus the GitHub account. */
 const baseCards: LinkCard[] = [
   {
     id: "email",

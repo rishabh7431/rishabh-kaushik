@@ -23,10 +23,10 @@ export const metadata: Metadata = pageMetadata({
 
 /** Paragraphs below are the resume's professional summary, split for reading. */
 const SUMMARY = [
-  "Recent software development graduate (SAIT, August 2026) with hands-on experience building applications on Microsoft Azure.",
-  "I turn business requirements into working software in an Agile team, work in TypeScript, JavaScript and Python with SQL databases and REST APIs, use Git, and write clear documentation as I go.",
-  "What sets me apart is real end-to-end delivery, leading a four-person Agile team, and three years of prior client-facing business experience, plus daily use of Microsoft Copilot and other AI tools.",
-  "I am looking for a team where I can own features end to end and keep widening the range of problems I can take on — across the stack, and increasingly with AI as part of the product rather than a bolt-on.",
+  "I'm Rishabh Kaushik, a full-stack developer in Calgary and a 2026 graduate of SAIT's Software Development diploma.",
+  "I've delivered a TypeScript microservices platform on Microsoft Azure as developer and project manager for a four-person Agile team, and built and shipped Pulse, a food and training app now in open Android beta on Google Play.",
+  "I work in TypeScript, JavaScript and Python with React, React Native, Node.js and SQL databases. I write tests, document as I go, and design AI features so the product still works when the model doesn't.",
+  "Before software, I spent three years in client-facing marketing operations building automation and CRM workflows, so I'm comfortable turning a business problem into something people actually use.",
 ];
 
 export default function AboutPage() {

@@ -30,7 +30,6 @@ export default function TermsPage() {
           body: [
             `All written content, project descriptions and original code on this site are © ${new Date().getFullYear()} ${site.name} unless stated otherwise.`,
             "Code published in public repositories is governed by the licence in that repository, which takes precedence over this page.",
-            "FitCheck was built by a team of five as academic work at SAIT. The write-up here describes my contribution and the team's decisions; the project is not solely mine to license.",
             "You may quote excerpts with attribution and a link. Presenting this work as your own is not permitted.",
           ],
         },

@@ -193,9 +193,10 @@ export function BentoGrid() {
               </h2>
 
               <p className="mt-5 text-[0.92rem] leading-relaxed text-ink-dim">
-                Full-stack developer who takes work from requirements through architecture, tests
-                and deploy. Comfortable across the stack, and happy to own the parts most people
-                skip.
+                Recent SAIT software development graduate who ships across web and mobile. I build
+                in TypeScript, React, React Native and Node.js, and I&apos;m looking for a junior or
+                intermediate developer role on a team that cares about tested, maintainable
+                software. Calgary, remote, or open to relocating.
               </p>
 
               <dl className="mt-6 flex flex-col gap-3 border-t border-line pt-5">

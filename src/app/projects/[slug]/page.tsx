@@ -88,7 +88,12 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
               </>
             ) : (
               <>
-                <GraduationCap className="size-3" /> {project.team}
+                {project.status === "Academic Project" ? (
+                  <GraduationCap className="size-3" />
+                ) : (
+                  <GitBranch className="size-3" />
+                )}{" "}
+                {project.team}
               </>
             )}
           </Badge>
@@ -188,9 +193,28 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
                     <p className="eyebrow">Role</p>
                     <p className="mt-2 text-[0.92rem] text-white/90">{project.role}</p>
                     <p className="mt-1 text-[0.85rem] text-ink-faint">{project.team}</p>
+                    {project.roleNote && (
+                      <p className="mt-2 text-[0.85rem] leading-relaxed text-ink-faint">
+                        {project.roleNote}
+                      </p>
+                    )}
                   </div>
 
                   <div className="mt-7 flex flex-col gap-2.5 border-t border-line pt-6">
+                    {project.links?.map((link, i) => (
+                      <ButtonLink
+                        key={link.href}
+                        href={link.href}
+                        variant={i === 0 ? "primary" : "secondary"}
+                        size="sm"
+                        icon={<ArrowUpRight className="size-3.5" />}
+                        className="w-full"
+                        magnetic={false}
+                      >
+                        {link.label}
+                      </ButtonLink>
+                    ))}
+
                     {project.repo ? (
                       <ButtonLink
                         href={project.repo}
@@ -203,10 +227,12 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
                         View repository
                       </ButtonLink>
                     ) : (
-                      <p className="text-[0.85rem] leading-relaxed text-ink-faint">
-                        The repository is not public. Happy to walk through the architecture and
-                        the code on a call.
-                      </p>
+                      !project.roleNote && (
+                        <p className="text-[0.85rem] leading-relaxed text-ink-faint">
+                          The repository is not public. Happy to walk through the architecture and
+                          the code on a call.
+                        </p>
+                      )
                     )}
                   </div>
                 </div>

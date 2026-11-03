@@ -1,6 +1,6 @@
 /**
- * Every entry below is listed under Technical Skills on the resume.
- * Nothing has been added for effect.
+ * Every entry below is listed under Technical Skills on the resume or is part
+ * of a shipped project's stack. Nothing has been added for effect.
  */
 
 export type UseItem = { name: string; detail: string; url: string; tag?: string };
@@ -31,6 +31,8 @@ export const useGroups: UseGroup[] = [
       { name: "Next.js", detail: "App framework", url: "https://nextjs.org", tag: "Frontend" },
       { name: "Vite", detail: "Build tooling", url: "https://vite.dev", tag: "Frontend" },
       { name: "Tailwind CSS", detail: "Styling", url: "https://tailwindcss.com", tag: "Frontend" },
+      { name: "React Native", detail: "Cross-platform mobile", url: "https://reactnative.dev", tag: "Mobile" },
+      { name: "Expo", detail: "Mobile toolchain", url: "https://expo.dev", tag: "Mobile" },
       { name: "Node.js", detail: "Server runtime", url: "https://nodejs.org", tag: "Backend" },
       { name: "Express", detail: "HTTP services", url: "https://expressjs.com", tag: "Backend" },
     ],
@@ -60,6 +62,8 @@ export const useGroups: UseGroup[] = [
       { name: "Git", detail: "Version control", url: "https://git-scm.com", tag: "VCS" },
       { name: "GitHub", detail: "Code hosting", url: "https://github.com", tag: "VCS" },
       { name: "CI/CD", detail: "Build, test, deploy", url: "https://docs.github.com/en/actions", tag: "Pipeline" },
+      { name: "Vercel", detail: "Hosting", url: "https://vercel.com", tag: "Cloud" },
+      { name: "EAS Build", detail: "Mobile builds", url: "https://expo.dev/eas", tag: "Pipeline" },
       { name: "Jira", detail: "Sprint tracking", url: "https://www.atlassian.com/software/jira", tag: "Planning" },
       { name: "Monday.com", detail: "Work management", url: "https://monday.com", tag: "Planning" },
     ],
