@@ -114,7 +114,7 @@ export const projects: Project[] = [
       "Android Health Connect",
     ],
     highlights: [
-      { label: "Platforms", value: "iOS, Android and web" },
+      { label: "Platforms", value: "Android (beta), iOS next" },
       { label: "Food sources", value: "5 merged into one search" },
       { label: "Status", value: "Open Android beta" },
     ],
