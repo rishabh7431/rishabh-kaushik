@@ -131,7 +131,12 @@ export const site = {
   },
 } as const;
 
-export const githubUsername = process.env.GITHUB_USERNAME ?? site.socials.github.handle;
+// `??` only catches undefined, so an env var that exists but is blank — which
+// is exactly what you get from copying .env.example into a host's dashboard —
+// would slip through and build URLs like /users//contributions, which 404.
+// Trim and treat empty as unset.
+export const githubUsername =
+  process.env.GITHUB_USERNAME?.trim() || site.socials.github.handle;
 
 export const nav = [
   { label: "Home", href: "/" },
